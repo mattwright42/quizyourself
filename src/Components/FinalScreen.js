@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import FetchButton from './FetchButton/';
+import FetchButton from './FetchButton';
 
 function FinalScreen() {
     const score = useSelector((state) => state.score)

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useSyncExternalStore} from "react";
+import React, {useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 const decodeHTML = function (html) {
@@ -13,10 +13,11 @@ function Question() {
     const [answerSelected, setAnswerSelected] = useState(false)
     const [selectedAnswer, setSelectedAnswer] = useState(null)
     const [options, setOptions] = useState([])
+
     const score = useSelector(state => state.score)
-    //const questions = useSelector(state => state.questions)
 
     const encodedQuestions = useSelector((state) => state.questions)
+
     useEffect(() => {
         const decodedQuestions = encodedQuestions.map(q => {
             return {
@@ -30,10 +31,13 @@ function Question() {
     }, [encodedQuestions])
 
     const questionIndex = useSelector(state => state.index)
+
     //define dispatch
     const dispatch = useDispatch()
+
     const question = questions[questionIndex]
-    const answer = question.correct_answer
+    const answer = question && question.correct_answer
+
     const getRandomInt = max => {
         return Math.floor(Math.random() * Math.floor(max));
     }
@@ -47,7 +51,7 @@ function Question() {
         setOptions(answers)
     }, [question])
 
-    const handleListItemClick = event => {
+    const handleListItemClick = (event) => {
         setAnswerSelected(true)
         setSelectedAnswer(event.target.textContent)
         if (event.target.textContent === answer) {
@@ -99,7 +103,7 @@ function Question() {
     
     return (
         <div>
-            <p>Question {questionIndex + 1}</p>
+            <p>Question {questionIndex + 1}:</p>
             <h3>{question.question}</h3>
             <ul>
                 {options.map((option, i) => (

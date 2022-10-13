@@ -6,7 +6,7 @@ function FetchButton(props) {
     const questionCategory = useSelector(state => state.options.question_category)
     const questionDifficulty = useSelector(state => state.options.question_difficulty)
     const questionType = useSelector(state => state.options.question_type)
-    const questionAmount = useSelector(state => state.options.amount_of_questions)
+    const questionAmount = useSelector(state => state.options.number_of_questions)
     const questionIndex = useSelector(state => state.options.index)
 
     const dispatch = useDispatch()
@@ -19,26 +19,32 @@ function FetchButton(props) {
     }
     const setQuestions = value => {
         dispatch({
-            type: 'SET_QUESITONS',
+            type: 'SET_QUESTIONS',
             questions: value
         })
     }
 
     const handleQuery = async () => {
+        console.log('amount', questionAmount)
+        console.log('category',questionCategory)
+        console.log('difficulty',questionDifficulty)
+        console.log('Type',questionType)
+        console.log('index',questionIndex)
         //always specify the number of questions to be returned
-        let apiUrl = `https://opentdb.com/api.php?amount=${questionAmount}`;
+        let apiUrl = `https://opentdb.com/api.php?amount=${questionAmount}`
 
         //only add the rest of the parameters if they aren't 'ALL'
-        if (questionCategory.length) {
-            apiUrl = apiUrl.concat(`&category=${questionCategory}`)
-        }
-        if (questionDifficulty.length) {
-            apiUrl = apiUrl.concat(`&difficulty=${questionDifficulty}`)
-        }
-        if (questionType.length) {
-            apiUrl = apiUrl.concat(`&typ=${questionType}`)
-        }
+        // if (questionCategory.length) {
+        //     apiUrl = apiUrl.concat(`&category=${questionCategory}`)
+        // }
+        // if (questionDifficulty.length) {
+        //     apiUrl = apiUrl.concat(`&difficulty=${questionDifficulty}`)
+        // }
+        // if (questionType.length) {
+        //     apiUrl = apiUrl.concat(`&type=${questionType}`)
+        // }
         setLoading(true)
+
         await fetch(apiUrl)
             .then((res) => res.json())
             .then((response) => {
@@ -46,8 +52,20 @@ function FetchButton(props) {
                 setQuestions(response.results)
                 setLoading(false)
             });
+
+        if(questionIndex > 0) {
+            dispatch({
+                type: 'SET_INDEX',
+                index: 0
+            })
+            dispatch({
+                type: 'SET_SCORE',
+                score: 0
+            })
+        }
+        console.log('button clicked!')
     }
-    //we will reuse this component pass button text as props
+    return <button onClick={handleQuery}>{props.text}</button>
 }
 
 export default FetchButton

@@ -1,33 +1,34 @@
 import React, {useEffect, useState} from "react";
 import {useSelector, useDispatch} from 'react-redux';
+import FetchButton from './FetchButton';
 
 function Settings() {
     //loading state
-    const [loading, setLoading] = useState(false);
+    const loading = useSelector((state) => state.options.loading)
 
     //useState hook for options
     const [options, setOptions] = useState(null);
 
     //useState hook for category
-    const [questionCategory, setQuestionCategory] = useState("");
+    const questionCategory = useSelector((state) => state.options.question_category)
 
     //useState hook for difficulty
-    const [questionDifficulty, setQuestionDifficulty] = useState("");
+    const questionDifficulty = useSelector((state) => state.options.question_difficulty)
 
     //useState hook for question type
-    const [questionType, setQuestionType] = useState("");
+    const questionType = useSelector((state) => state.options.question_type)
 
     //useState hook for number of questions
-    const [numberOfQuestions, setNumberOfQuestions] = useState(50);
+    const numberOfQuestions = useSelector((state) => state.options.number_of_questions)
 
     const dispatch = useDispatch()
     //useEffect hook
     useEffect(() => {
         const apiUrl = `https://opentdb.com/api_category.php`;
-        const handleLoadingChange = value => {
+        const handleLoadingChange = (value) => {
             dispatch({
                 type: 'CHANGE_LOADING',
-                loaading: value
+                loading: value
             })
         }
 
@@ -42,28 +43,28 @@ function Settings() {
     }, [setOptions, dispatch]);
 
     //event that is called when an category is chosen
-    const handleCategoryChange = event => {
+    const handleCategoryChange = (event) => {
         dispatch({
             type: 'CHANGE_CATEGORY',
-            value: event.target.value
+            question_category: event.target.value
         })
     }
     const handleDifficultyChange = event => {
         dispatch({
             type: 'CHANGE_DIFFICULTY',
-            value: event.target.value
+            question_difficulty: event.target.value
         })
     }
     const handleTypeChange = event => {
         dispatch({
             type: 'CHANGE_TYPE',
-            value: event.target.value
+            question_type: event.target.value
         })
     }
     const handleNumberChange = event => {
         dispatch({
             type: 'CHANGE_AMOUNT',
-            value: event.target.value
+            number_of_questions: event.target.value
         })
     }
 
@@ -77,7 +78,7 @@ function Settings() {
                     <select value={questionCategory} onChange={handleCategoryChange}>
                         <option>All</option>
                         {
-                            options && options.map((option) => (
+                            options && options.length && options.map((option) => (
                                 <option value={option.id} key={option.id}>
                                     {option.name}
                                 </option>
@@ -106,8 +107,10 @@ function Settings() {
                     <h2>Number of Questions:</h2>
                     <input value={numberOfQuestions} onChange={handleNumberChange} />
                 </div>
+
+                <FetchButton text="Quiz yourself!" />
             </div>
-        );
+        )
     } else {
         <p>LOADING...</p>
     }
