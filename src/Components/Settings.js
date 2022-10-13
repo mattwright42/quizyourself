@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import {useSelector, useDispatch} from 'react-redux';
 import FetchButton from './FetchButton';
 
+import 'bootstrap/dist/css/bootstrap.css';
+
 function Settings() {
     //loading state
     const loading = useSelector((state) => state.options.loading)
@@ -20,6 +22,7 @@ function Settings() {
 
     //useState hook for number of questions
     const numberOfQuestions = useSelector((state) => state.options.number_of_questions)
+    console.log(typeof numberOfQuestions )
 
     const dispatch = useDispatch()
     //useEffect hook
@@ -46,25 +49,25 @@ function Settings() {
     const handleCategoryChange = (event) => {
         dispatch({
             type: 'CHANGE_CATEGORY',
-            question_category: event.target.value
+            value: event.target.value
         })
     }
     const handleDifficultyChange = event => {
         dispatch({
             type: 'CHANGE_DIFFICULTY',
-            question_difficulty: event.target.value
+            value: event.target.value
         })
     }
     const handleTypeChange = event => {
         dispatch({
             type: 'CHANGE_TYPE',
-            question_type: event.target.value
+            value: event.target.value
         })
     }
     const handleNumberChange = event => {
         dispatch({
             type: 'CHANGE_AMOUNT',
-            number_of_questions: event.target.value
+            value: event.target.value
         })
     }
 
@@ -73,9 +76,14 @@ function Settings() {
         //add select elements for categories
         return (
             <div>
+                <h1>Quiz Yourself!</h1>
+                
+                
+                <br></br>
                 <div>
                     <h2>Select Category:</h2>
-                    <select value={questionCategory} onChange={handleCategoryChange}>
+                    <div>
+                    <select value={questionCategory} onChange={handleCategoryChange} >
                         <option>All</option>
                         {
                             options && options.length && options.map((option) => (
@@ -85,7 +93,11 @@ function Settings() {
                             ))
                         }
                     </select>
+                    </div>
+                    
                 </div>
+                <br></br>
+                <br></br>
                 <div>
                     <h2>Select Difficulty:</h2>
                     <select value={questionDifficulty} onChange={handleDifficultyChange}>
@@ -95,6 +107,8 @@ function Settings() {
                         <option value="hard" key="difficulty-3">Hard</option>
                     </select>
                 </div>
+                <br></br>
+                <br></br>
                 <div>
                     <h2>Select Question Type:</h2>
                     <select value={questionType} onChange={handleTypeChange}>
@@ -103,12 +117,17 @@ function Settings() {
                         <option value="boolean" key="type-2">True/False</option>
                     </select>
                 </div>
+                <br></br>
+                <br></br>
                 <div>
                     <h2>Number of Questions:</h2>
                     <input value={numberOfQuestions} onChange={handleNumberChange} />
                 </div>
-
-                <FetchButton text="Quiz yourself!" />
+                <br></br>
+                <br></br>
+                <div>
+                    <FetchButton text="Quiz yourself!" />
+                </div>
             </div>
         )
     } else {

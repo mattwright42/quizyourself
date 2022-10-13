@@ -14,13 +14,13 @@ function FetchButton(props) {
     const setLoading = value => {
         dispatch({
             type: 'CHANGE_LOADING',
-            loading: value
+            value: value
         })
     }
     const setQuestions = value => {
         dispatch({
             type: 'SET_QUESTIONS',
-            questions: value
+            value: value
         })
     }
 
@@ -34,15 +34,15 @@ function FetchButton(props) {
         let apiUrl = `https://opentdb.com/api.php?amount=${questionAmount}`
 
         //only add the rest of the parameters if they aren't 'ALL'
-        // if (questionCategory.length) {
-        //     apiUrl = apiUrl.concat(`&category=${questionCategory}`)
-        // }
-        // if (questionDifficulty.length) {
-        //     apiUrl = apiUrl.concat(`&difficulty=${questionDifficulty}`)
-        // }
-        // if (questionType.length) {
-        //     apiUrl = apiUrl.concat(`&type=${questionType}`)
-        // }
+        if (questionCategory.length) {
+            apiUrl = apiUrl.concat(`&category=${questionCategory}`)
+        }
+        if (questionDifficulty.length) {
+            apiUrl = apiUrl.concat(`&difficulty=${questionDifficulty}`)
+        }
+        if (questionType.length) {
+            apiUrl = apiUrl.concat(`&type=${questionType}`)
+        }
         setLoading(true)
 
         await fetch(apiUrl)
@@ -56,11 +56,11 @@ function FetchButton(props) {
         if(questionIndex > 0) {
             dispatch({
                 type: 'SET_INDEX',
-                index: 0
+                value: 0
             })
             dispatch({
                 type: 'SET_SCORE',
-                score: 0
+                value: 0
             })
         }
         console.log('button clicked!')

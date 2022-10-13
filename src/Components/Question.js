@@ -57,7 +57,7 @@ function Question() {
         if (event.target.textContent === answer) {
             dispatch({
                 type: 'SET_SCORE',
-                score: score + 1
+                value: score + 1
             })
         }
         if (questionIndex +1 <= questions.length) {
@@ -66,7 +66,7 @@ function Question() {
                 setSelectedAnswer(null)
                 dispatch({
                     type: 'SET_INDEX',
-                    index: questionIndex + 1
+                    value: questionIndex + 1
                 })
             }, 2500)
         }
@@ -103,8 +103,10 @@ function Question() {
     
     return (
         <div>
-            <p>Question {questionIndex + 1}:</p>
+            <h1>Question {questionIndex + 1}:</h1>
+            <br />
             <h3>{question.question}</h3>
+            <br />
             <ul>
                 {options.map((option, i) => (
                     <li key={i} onClick={handleListItemClick} className={getClass(option)}>
@@ -112,8 +114,9 @@ function Question() {
                     </li>
                 ))}
             </ul>
+            <br />
             <div>
-                Score: {score} / {questions.length}
+                <p>Score: {score} / {questions.length}</p>
             </div>
         </div>
     )

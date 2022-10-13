@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import Settings from './Components/Settings';
 import Question from './Components/Question';
 import FinalScreen from './Components/FinalScreen';
+
+
 import './App.css';
 
 function App() {
@@ -20,8 +22,8 @@ function App() {
   }
   return (
     <div className="App">
-      <h1>Quiz Yourself!</h1>
-      <div className="app-container">{component}</div>
+      
+      <div className='app-container'>{component}</div>
     </div>
   );
 }

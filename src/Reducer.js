@@ -50,23 +50,23 @@ const Reducer = (state = initState, action) => {
                 ...state,
                 options: {
                     ...state.options,
-                    number_of_questions: action.value
+                    number_of_questions: parseInt(action.value)
                 }
             }
         case "SET_QUESTIONS":
             return {
                 ...state,
-                questions: action.questions
+                questions: action.value
             }
         case "SET_INDEX":
             return {
                 ...state,
-                index: action.index
+                index: action.value
             }
         case "SET_SCORE":
             return {
                 ...state,
-                score: action.score
+                score: action.value
             }
         default:
             return state

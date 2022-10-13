@@ -10,24 +10,24 @@ function FinalScreen() {
     const replay = () => {
         dispatch({
             type: 'SET_INDEX',
-            index: 0
+            value: 0
         })
 
         dispatch({
             type: 'SET_SCORE',
-            score: 0
+            value: 0
         })
     }
 
     const settings = () => {
         dispatch({
             type: 'SET_QUESITONS',
-            questions: []
+            value: []
         })
 
         dispatch({
             type: 'SET_SCORE',
-            score: 0
+            value: 0
         })
     }
 
