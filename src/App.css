@@ -152,4 +152,10 @@ li.correct {
 
 li.selected:not(correct) {
   background-color: #FE8F32;
+  color: #70ECFD;
+}
+
+.final-buttons{
+  display: flex;
+  flex-direction: column;
 }

@@ -99,7 +99,7 @@ function Question() {
     if(!question) {
         return <div>Loading...</div>
     }
-    
+    console.log("q index", questionIndex)
     
     return (
         <div>

@@ -8,6 +8,7 @@ function FetchButton(props) {
     const questionType = useSelector(state => state.options.question_type)
     const questionAmount = useSelector(state => state.options.number_of_questions)
     const questionIndex = useSelector(state => state.options.index)
+    const questions = useSelector(state => state.questions)
 
     const dispatch = useDispatch()
 
@@ -25,11 +26,7 @@ function FetchButton(props) {
     }
 
     const handleQuery = async () => {
-        console.log('amount', questionAmount)
-        console.log('category',questionCategory)
-        console.log('difficulty',questionDifficulty)
-        console.log('Type',questionType)
-        console.log('index',questionIndex)
+        
         //always specify the number of questions to be returned
         let apiUrl = `https://opentdb.com/api.php?amount=${questionAmount}`
 
@@ -52,8 +49,8 @@ function FetchButton(props) {
                 setQuestions(response.results)
                 setLoading(false)
             });
-
-        if(questionIndex > 0) {
+            
+        //if(questionIndex > 0) {
             dispatch({
                 type: 'SET_INDEX',
                 value: 0
@@ -62,7 +59,9 @@ function FetchButton(props) {
                 type: 'SET_SCORE',
                 value: 0
             })
-        }
+       //}
+        console.log('questions', questions)
+        console.log('index',questionIndex)
         console.log('button clicked!')
     }
     return <button onClick={handleQuery}>{props.text}</button>
